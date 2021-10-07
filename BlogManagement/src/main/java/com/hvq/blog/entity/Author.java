@@ -32,12 +32,12 @@ public class Author extends BaseEntity {
 		this.descreption = descreption;
 	}
 
-	public Set<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(Set<Post> posts) {
-		this.posts = posts;
-	}
+//	public Set<Post> getPosts() {
+//		return posts;
+//	}
+//
+//	public void setPosts(Set<Post> posts) {
+//		this.posts = posts;
+//	}
 	
 }
