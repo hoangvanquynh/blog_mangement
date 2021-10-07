@@ -15,10 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Post {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long postId;
+public class Post extends BaseEntity{
+
 	private String title;
 	private String slug;
 	private String content;
@@ -26,24 +24,14 @@ public class Post {
 	private int commentCount;
 	private boolean isPulished;
 	private Date deleteAt;
-	private Date createAt;
-	private Date updateAt;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "post_category", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-	private Set<Categories> categories;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "post_category", joinColumns = {@JoinColumn(name = "post_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
+	private Set<Category> categories;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "author_id", nullable = false)
 	private Author author;
-
-	public Long getPostId() {
-		return postId;
-	}
-
-	public void setPostId(Long postId) {
-		this.postId = postId;
-	}
 
 	public String getTitle() {
 		return title;
@@ -69,11 +57,11 @@ public class Post {
 		this.content = content;
 	}
 
-	public Set<Categories> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<Categories> categories) {
+	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
 
@@ -115,22 +103,6 @@ public class Post {
 
 	public void setDeleteAt(Date deleteAt) {
 		this.deleteAt = deleteAt;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-
-	public Date getUpdateAt() {
-		return updateAt;
-	}
-
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
 	}
 
 }
